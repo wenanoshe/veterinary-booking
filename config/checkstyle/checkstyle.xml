@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+		"-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+		"https://checkstyle.org/dtds/configuration_1_3.dtd">
+<!--
+	Curated Checkstyle ruleset.
+
+	Deliberately excludes cosmetic/formatting modules (Indentation, LineLength,
+	WhitespaceAround, FileTabCharacter, and friends). Those are owned by
+	Spotless/palantirJavaFormat. Mixing the two guarantees permanent friction:
+	the formatter moves the code, the linter complains, repeat.
+
+	What is left is what a linter is actually good at: imports, naming,
+	braces, and correctness patterns that are hard to eyeball.
+-->
+<module name="Checker">
+	<property name="charset" value="UTF-8"/>
+	<property name="severity" value="error"/>
+	<property name="fileExtensions" value="java"/>
+
+	<!--
+		Enables @SuppressWarnings("checkstyle:<module>") to silence a rule at the
+		source. Prefer this over editing the ruleset: the suppression stays next
+		to the code that needs it and the reason is visible in the diff.
+	-->
+	<module name="SuppressWarningsFilter"/>
+
+	<module name="TreeWalker">
+		<!-- Collects the @SuppressWarnings annotations read by SuppressWarningsFilter. -->
+		<module name="SuppressWarningsHolder"/>
+
+		<!-- ==================== Imports ==================== -->
+		<module name="UnusedImports">
+			<property name="processJavadoc" value="true"/>
+		</module>
+		<module name="RedundantImport"/>
+		<module name="AvoidStarImport"/>
+		<module name="IllegalImport"/>
+
+		<!-- ==================== Naming ==================== -->
+		<module name="PackageName">
+			<property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+		</module>
+		<module name="TypeName"/>
+		<module name="MethodName"/>
+		<module name="ConstantName"/>
+		<module name="LocalVariableName"/>
+		<module name="MemberName"/>
+		<module name="ParameterName"/>
+		<module name="StaticVariableName"/>
+
+		<!-- ==================== Braces and statements ==================== -->
+		<module name="NeedBraces"/>
+		<module name="LeftCurly"/>
+		<module name="RightCurly"/>
+		<module name="EmptyStatement"/>
+		<module name="EmptyBlock">
+			<property name="option" value="text"/>
+			<property name="tokens" value="LITERAL_TRY,LITERAL_FINALLY,LITERAL_IF,LITERAL_ELSE,LITERAL_FOR,LITERAL_WHILE,LITERAL_DO,LITERAL_SWITCH,STATIC_INIT,INSTANCE_INIT"/>
+		</module>
+		<module name="OneStatementPerLine"/>
+		<module name="MultipleVariableDeclarations"/>
+		<module name="ArrayTypeStyle"/>
+		<module name="UpperEll"/>
+		<module name="ModifierOrder"/>
+
+		<!-- ==================== Correctness ==================== -->
+		<module name="EqualsHashCode"/>
+		<module name="CovariantEquals"/>
+		<module name="StringLiteralEquality"/>
+		<module name="FallThrough"/>
+		<module name="MissingSwitchDefault"/>
+		<module name="DefaultComesLast"/>
+		<module name="SimplifyBooleanExpression"/>
+		<module name="SimplifyBooleanReturn"/>
+		<module name="UnusedLocalVariable"/>
+		<module name="NoFinalizer"/>
+		<module name="IllegalInstantiation"/>
+		<module name="InnerAssignment"/>
+		<module name="MissingOverride"/>
+
+		<!-- ==================== Design ==================== -->
+		<module name="FinalClass"/>
+		<module name="HideUtilityClassConstructor"/>
+		<module name="InterfaceIsType"/>
+		<module name="VisibilityModifier"/>
+		<module name="OneTopLevelClass"/>
+		<module name="OuterTypeFilename"/>
+
+		<!-- ==================== Informational ==================== -->
+		<!-- Javadoc on public types is encouraged but never fails the build. -->
+		<module name="MissingJavadocType">
+			<property name="scope" value="public"/>
+			<property name="severity" value="warning"/>
+		</module>
+		<module name="JavadocType">
+			<property name="scope" value="public"/>
+			<property name="severity" value="warning"/>
+		</module>
+
+	</module>
+</module>

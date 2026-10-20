@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	SpotBugs exclude filter.
+
+	EI_EXPOSE_REP / EI_EXPOSE_REP2 fire on getters returning a mutable internal
+	reference. For Spring entities and DTOs that is the intended contract, so
+	keeping them would mean a permanent wall of false positives.
+-->
+<FindBugsFilter>
+	<Match>
+		<Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2,EI_EXPOSE_STATIC_REP2"/>
+	</Match>
+</FindBugsFilter>
